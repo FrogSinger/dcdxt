@@ -3,5 +3,5 @@ from teacher import views
 
 urlpatterns = [
     url(r'^index',views.index),
-    url(r'^import_data',views.import_data),
+    url(r'^import_course_data$',views.import_course_data),
 ]

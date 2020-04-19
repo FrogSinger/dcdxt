@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from majorPerson.models import *
+from django.http import FileResponse
 import json
 
 # Create your views here.
@@ -116,3 +117,18 @@ def get_matrix(request):
         data.append(temp)
     data = json.dumps(data, ensure_ascii=False)
     return HttpResponse(data)
+
+# def download_template(request):
+#     file = open('static/files/template.xlsx', 'rb')
+#     response = HttpResponse(file)
+#     response['Content-Type'] = 'application/octet-stream'
+#     response['Content-Disposition'] = 'attachment;filename="template.xlsx"'
+#     return response
+
+
+def download_template(request):
+    file=open('static/files/template.xlsx','rb')
+    response =FileResponse(file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename="template.xlsx"'
+    return response

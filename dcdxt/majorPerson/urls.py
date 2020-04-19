@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'delete_data$',views.delete_data),
     url(r'import_interface$',views.import_interface),
     url(r'get_matrix$', views.get_matrix),
+    url(r'download_template$', views.download_template),
 ]
