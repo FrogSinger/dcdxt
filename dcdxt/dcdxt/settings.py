@@ -55,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'dcdxt.urls'
+APPEND_SLASH = True
 
 TEMPLATES = [
     {

@@ -140,16 +140,24 @@ $(function () {
             point.shift()
             course.shift()
             point_course.shift()
+            var course_norepeat = []
+            var flag = {}
             for(var i=1; i<course.length; i++){
-                for(var j=0; j<i; j++){
-                    if(course[i].courseNumber == course[j].courseNumber)
-                        course.splice(i,1)
+                if(!(course[i].courseNumber in flag)){
+                    course_norepeat.push(course[i])
+                    flag[course[i].courseNumber] = true
                 }
             }
+            var info = {
+                    req:req,
+                    point:point,
+                    course:course_norepeat,
+                    point_course_matrix:point_course
+                }
             $.ajax({
                 type:"POST",
-                url:"/majorPerson/import_data_interface",
-                data:{req:req,point:point,course:course,point_course_matrix:point_course},
+                url:"/majorPerson/import_interface",
+                data: {info:JSON.stringify(info)},
                 success:function (msg) {
                     alert('ok')
                 },

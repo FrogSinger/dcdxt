@@ -57,11 +57,12 @@ def index(request):
 def import_data(request):
     return render(request,'majorPerson/import_supportMatrix.html')
 
-def import_data_interface(request):
-    req = request.POST["req"]
-    point = request.POST["point"]
-    course = request.POST["course"]
-    point_course_matrix = request.POST["point_course_matrix"]
+def import_interface(request):
+    info = json.loads(request.POST['info'])
+    req = info["req"]
+    point = info["point"]
+    course = info["course"]
+    point_course_matrix = info["point_course_matrix"]
 
     # Delete all from database before insert
     GraduationReq.objects.all().delete()
