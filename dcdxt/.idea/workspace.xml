@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da4be9d1-6e64-4d65-b0de-2fde06749e5d" name="默认" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="da4be9d1-6e64-4d65-b0de-2fde06749e5d" name="默认" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majorPerson/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majorPerson/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dcdxt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dcdxt.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coursePerson/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coursePerson/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coursePerson/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/coursePerson/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coursePerson/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coursePerson/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dcdxt/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dcdxt/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dcdxt/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dcdxt/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dcdxt/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dcdxt/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instructor/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/instructor/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instructor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/instructor/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/majorPersonn/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/student/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/student/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
@@ -24,39 +48,20 @@
       </file>
     </leaf>
   </component>
+=======
+>>>>>>> d029f4c9a6774b475591e89a4865f40e29340096
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/templates/teacher.html" />
-        <option value="$PROJECT_DIR$/dcdxt/__init__.py" />
-        <option value="$PROJECT_DIR$/dcdxt/settings.py" />
-        <option value="$PROJECT_DIR$/templates/student/index.html" />
-        <option value="$PROJECT_DIR$/student/urls.py" />
-        <option value="$PROJECT_DIR$/student/views.py" />
-        <option value="$PROJECT_DIR$/dcdxt/urls.py" />
-      </list>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-11" />
-    <option name="y" value="-11" />
-    <option name="width" value="1942" />
-    <option name="height" value="1042" />
-  </component>
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -117,10 +122,20 @@
       </pane>
       <pane id="Scratches" />
     </panes>
+=======
+  <component name="ProjectId" id="1ah3ElHRpsdRJp3tEd1B35wTHK6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+>>>>>>> d029f4c9a6774b475591e89a4865f40e29340096
   </component>
   <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../liveTV" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -130,6 +145,7 @@
       <recent name="D:\大三\大三下 课程\管理信息系统\毕业要求达成度系统\dcdxt\teacher" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -278,6 +294,9 @@
       <envs />
       <method />
     </configuration>
+=======
+  <component name="RunManager">
+>>>>>>> d029f4c9a6774b475591e89a4865f40e29340096
     <configuration default="true" type="tests" factoryName="不至于">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -314,7 +333,21 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="dcdxt" type="Python.DjangoServer" factoryName="Django server">
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="dcdxt" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dcdxt" type="Python.DjangoServer" factoryName="Django server">
+      <module name="dcdxt" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -326,7 +359,6 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="dcdxt" />
       <option name="launchJavascriptDebuger" value="false" />
       <option name="port" value="8000" />
       <option name="host" value="" />
@@ -336,14 +368,17 @@
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
-      <method />
+      <method v="2" />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Django server.dcdxt" />
-    </list>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -355,9 +390,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587118238629</updated>
+      <workItem from="1587173892178" duration="24481000" />
+      <workItem from="1587258523698" duration="15343000" />
     </task>
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
@@ -598,5 +636,19 @@
         </state>
       </provider>
     </entry>
+=======
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="561" y="55" width="652" height="803" key="#dcdxt" timestamp="1587258749407">
+      <screen x="67" y="27" width="1651" height="861" />
+    </state>
+    <state x="561" y="55" width="652" height="803" key="#dcdxt/67.27.1651.861@67.27.1651.861" timestamp="1587258749407" />
+    <state x="675" y="214" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587197335417">
+      <screen x="67" y="27" width="1651" height="861" />
+    </state>
+    <state x="675" y="214" width="424" height="484" key="FileChooserDialogImpl/67.27.1651.861@67.27.1651.861" timestamp="1587197335417" />
+>>>>>>> d029f4c9a6774b475591e89a4865f40e29340096
   </component>
 </project>

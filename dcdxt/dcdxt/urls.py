@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^teacher/', include('teacher.urls')),
     url(r'^instructor/', include('instructor.urls')),
     url(r'^coursePerson/', include('coursePerson.urls')),
-    url(r'^majorPersonn/', include('majorPersonn.urls')),
+    url(r'^majorPerson/', include('majorPerson.urls')),
 ]
