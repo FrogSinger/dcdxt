@@ -53,6 +53,11 @@ def index(request):
 #         obj.save()
 #     return HttpResponse('OK')
 
+def delete_data(request):
+    GraduationReq.objects.all().delete()
+    GraduationReqPoint.objects.all().delete()
+    Course.objects.all().delete()
+    SupportMatrix.objects.all().delete()
 
 def import_data(request):
     return render(request,'majorPerson/import_supportMatrix.html')

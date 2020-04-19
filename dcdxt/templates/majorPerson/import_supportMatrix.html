@@ -13,7 +13,7 @@
 <style>
     .table th, .table td {
         text-align: center;
-        vertical-align: middle!important;
+        vertical-align: middle !important;
     }
 </style>
 <body>
@@ -63,6 +63,20 @@
             </tr>
             <tbody id="table"></tbody>
         </table>
+    </div>
+</div>
+<!--导入成功提示框-->
+<button data-toggle="modal" data-target="#mymodal" id="ok" style="display: none"></button>
+<div id="mymodal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">导入成功</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>

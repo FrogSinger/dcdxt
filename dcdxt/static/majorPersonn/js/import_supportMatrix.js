@@ -1,8 +1,13 @@
 $(function () {
     //下载导入模板
-    $("#bt").click(function () {
-        var sheet = XLSX.utils.table_to_sheet($('#table')[0])
-        openDownloadDialog(sheet2blob(sheet), '导入模板.xlsx');
+    $("#download").click(function () {
+         $.ajax({
+            type:"POST",
+            url:"/majorPerson/download_template",
+            error:function (xhr) {
+                alert("下载失败：" + xhr.status)
+            }
+        })
     })
 
     //指标点跟着毕业要求级联变动
@@ -159,7 +164,7 @@ $(function () {
                 url:"/majorPerson/import_interface",
                 data: {info:JSON.stringify(info)},
                 success:function (msg) {
-                    alert('ok')
+                    $("#ok").click()
                 },
                 error:function (xhr) {
                     alert("请求失败：" + xhr.status)
