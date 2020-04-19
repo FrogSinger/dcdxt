@@ -25,7 +25,7 @@ SECRET_KEY = '6ds7$$0bm1d-+ty*8^-x2%xt+8v(srrm*j8d$$hj3j%=_#8d!$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'teacher',
     'instructor',
     'coursePerson',
-    'majorPersonn'
+    'majorPerson'
 ]
 
 MIDDLEWARE = [
@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dcdxt', #数据库名
-        'USER': 'lpr', #连接mysql的用户名
-        'PASSWORD': 'lpr2017SQL_', #连接mysql的密码
+        'USER': 'root', #连接mysql的用户名
+        'PASSWORD': '19990713', #连接mysql的密码
         'HOST': 'localhost',
         'PORT': 3306
     }
@@ -113,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
