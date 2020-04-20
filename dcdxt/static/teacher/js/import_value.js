@@ -51,10 +51,10 @@ $(function () {
         var className = $("#class option:selected").text()
         var courseName = $("#course option:selected").text()
         var info2 = {}
-        for(var i=0; i<info.length; i++){
-            if(className == info[i].className)
+        for (var i = 0; i < info.length; i++) {
+            if (className == info[i].className)
                 info2["classNumber"] = info[i].classNumber
-            if(courseName == info[i].courseName)
+            if (courseName == info[i].courseName)
                 info2["courseNumber"] = info[i].courseNumber
         }
         $.ajax({
@@ -62,14 +62,24 @@ $(function () {
             url: "/teacher/get_value_data",
             data: {info: JSON.stringify(info2)},
             success: function (msg) {
-                console.log(ok);
+                console.log(msg);
+                //将后端返回的数据转成json格式
+                msg = JSON.parse(msg)
+                //清空表格内容 添加数据
+                $("#table").empty()
+                for (var i = 0; i < msg['data'].length; i++) {
+                    $("#table").append($("<tr><td>" + (i + 1) + "</td><td>" + msg['data'][i]["point"] + "</td><td>" +
+                        msg['data'][i]["studentNumber"] + "</td><td>" + msg['data'][i]["name"] + "</td><td>" + msg['data'][i]["mark"] + "</td></tr>"))
+                }
+                //审核状态
+                if(msg['status'] == 0)
+                    $("#status").text('未审核').show().css('color','red')
             },
             error: function (xhr) {
                 alert("请求失败：" + xhr.status)
             }
         })
     })
-
 
     //导入课程评价值excel
     $("#import").click(function () {
@@ -85,33 +95,40 @@ $(function () {
             var workbook = XLSX.read(data, {type: 'binary'});
             var worksheet = workbook.Sheets.Sheet1
             //记录学生评价值的对象
-            var info = {
-                courseName: '概率论与数理统计', //$("#course option:selected").text()
+            var info3 = {
                 points: [],
                 value: []
+            }
+            var className = $("#class option:selected").text()
+            var courseName = $("#course option:selected").text()
+            for (var i = 0; i < info.length; i++) {
+                if (className == info[i].className)
+                    info3["classNumber"] = info[i].classNumber
+                if (courseName == info[i].courseName)
+                    info3["courseNumber"] = info[i].courseNumber
             }
             for (var key in worksheet) {
                 // v读取单元格的原始值 w读取格式化后的内容
                 if (key[0] != '!') {
                     if (key[1] == '1' && key[0] != 'A') { //取出表头的指标点编号
-                        info.points.push(worksheet[key].w)
+                        info3.points.push(worksheet[key].w)
                     }
                     else if (key[1] != '1') { //表体内容
                         if (key[0] == 'A') //记录学号
-                            info.value.push({
+                            info3.value.push({
                                 //记录学生在各个指标点上评价值的对象
                                 studentNumber: worksheet[key].w,
                                 point: []
                             })
                         else //记录评价值
-                            info.value[info.value.length - 1].point.push(worksheet[key].v)
+                            info3.value[info3.value.length - 1].point.push(worksheet[key].v)
                     }
                 }
             }
             $.ajax({
                 type: "POST",
                 url: "/teacher/import_course_data",
-                data: {info: JSON.stringify(info)},
+                data: {info: JSON.stringify(info3)},
                 success: function (msg) {
                     $("#ok").click()
                 },
@@ -120,5 +137,10 @@ $(function () {
                 }
             })
         }
+    })
+
+    //下载导入模板
+    $("#download").click(function () {
+        window.location = "/teacher/download_course_template"
     })
 })

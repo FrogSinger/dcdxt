@@ -172,4 +172,9 @@ $(function () {
             })
         }
     })
+
+    //下载导入模板
+    $("#download").click(function () {
+        window.location = "/majorPerson/download_template"
+    })
 })

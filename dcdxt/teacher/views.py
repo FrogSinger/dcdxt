@@ -1,18 +1,60 @@
 from django.shortcuts import render
 from majorPerson.models import *
 from django.http import HttpResponse
-from django.db.models import Q
+from django.http import FileResponse
+from django.shortcuts import redirect
 import json
 
-# Create your views here.
+# /teacher/index
+def index(request):
+    return render(request, 'teacher/index.html')
 
 # /login
 def login(request):
-    return render(request,'login.html')
+    # judge login status
+    # userType = request.session['userType']
+    # if request.session.has_key('islogin'):
+    #     if (userType == "学生"):
+    #         return render(request, 'student/index.html')
+    #     if (userType == "导员"):
+    #         return render(request, 'instructor/index.html')
+    #     if (userType == "教师"):
+    #         return render(request, 'teacher/index.html')
+    #     if (userType == "专业负责人"):
+    #         return render(request, 'majorPerson/index.html')
+    #     if (userType == "课程负责人"):
+    #         return render(request, 'coursePerson/index.html')
+    # else:
+        return render(request, 'login.html')
+
 
 # /loginHandle
 def loginHandle(request):
-    return render(request,'teacher/index.html')
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    print(username,password)
+    # remember login status
+    request.session['islogin'] = True
+    #look up in database
+    islogin = User.objects.filter(user__number=username,password=password)
+    userType = islogin[0].type
+    #Save user type
+    request.session['userType'] = userType
+    if (len(islogin)>=1):
+        if(userType=="学生"):
+            return render(request, 'student/index.html')
+        if(userType=="导员"):
+            return render(request, 'instructor/index.html')
+        if(userType=="教师"):
+            return render(request, 'teacher/index.html')
+        if (userType=="专业负责人"):
+            return render(request, 'majorPerson/index.html')
+        if (userType=="课程负责人"):
+            return render(request, 'coursePerson/index.html')
+        #return JsonResponse({'res': 1})
+    else:
+        return HttpResponse("Login error")
+
 
 # /teacher/import_course
 def import_course(request):
@@ -42,12 +84,12 @@ def get_course_data(request):
 # /teacher/import_course_data
 def import_course_data(request):
     info = json.loads(request.POST['info'])
-    courseName = info["courseName"]
-    #classNumber = json_text["classNumber"]
+    courseNumber = info["courseNumber"]
+    #classNumber = info["classNumber"]
     points = info["points"]
     value = info["value"]
 
-    course = Course.objects.get(name=courseName)
+    course = Course.objects.get(courseNumber=courseNumber)
 
     print(course)
 
@@ -63,3 +105,40 @@ def import_course_data(request):
                 item.delete()
             obj.save()
     return HttpResponse('OK')
+
+def get_value_data(request):
+    info = json.loads(request.POST['info'])
+    courseNumber = info["courseNumber"]
+    classNumber = info["classNumber"]
+
+    teach = Teach.objects.filter(course__courseNumber=courseNumber, majorClass__classNumber=classNumber)
+    status = teach[0].status
+
+    items = CourseMark.objects.filter(course__courseNumber=courseNumber,student__majorClass__classNumber=classNumber)
+    data = []
+    for item in items:
+        point = item.point.number
+        studentNumber = item.student.number
+        name = item.student.name
+        mark = item.mark
+        temp = {
+            "point":point,
+            "studentNumber":studentNumber,
+            "name":name,
+            "mark":mark
+        }
+        data.append(temp)
+    data = {
+        "status":status,
+        "data":data
+    }
+    data = json.dumps(data, ensure_ascii=False)
+    #print(data)
+    return HttpResponse(data)
+
+def download_course_template(request):
+    file=open('static/files/template_course.xlsx','rb')
+    response =FileResponse(file)
+    response['Content-Type']='application/octet-stream'
+    response['Content-Disposition']='attachment;filename="template_course.xlsx"'
+    return response

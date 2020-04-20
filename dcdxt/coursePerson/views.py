@@ -50,7 +50,7 @@ def course_examine(request):
     #print(data)
     import json
     json_data = json.dumps(data,ensure_ascii=False)
-
+    print(data)
     return HttpResponse(json_data)
 
 
@@ -98,5 +98,6 @@ def get_examine(request):
     }
     import json
     json_data = json.dumps(data,ensure_ascii=False)
+    print(data)
 
     return render(request, 'coursePerson/course_value.html',{"data":json_data})
