@@ -6,13 +6,6 @@ from django.db.models import Q
 # /coursePerson/index
 from majorPerson.models import CourseMark,Teach,Staff
 
-# /login
-def login(request):
-    return render(request,'login.html')
-
-# /loginHandle
-def loginHandle(request):
-    return render(request,'teacher/index.html')
 
 
 def index(request):

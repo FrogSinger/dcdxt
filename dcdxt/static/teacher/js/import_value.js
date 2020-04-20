@@ -3,6 +3,20 @@
  */
 $(function () {
 
+    //请求
+    $.ajax({
+        type: "POST",
+        url: "/teacher/import_course_data",
+        data: {info: JSON.stringify(info)},
+        success: function (msg) {
+            $("#ok").click()
+            console.log(msg);
+        },
+        error: function (xhr) {
+            alert("请求失败：" + xhr.status)
+        }
+    })
+
     //导入课程评价值excel
     $("#import").click(function () {
         //创建文件读取对象
@@ -18,7 +32,7 @@ $(function () {
             var worksheet = workbook.Sheets.Sheet1
             //记录学生评价值的对象
             var info = {
-                courseName: '软件测试', //$("#course option:selected").text()
+                courseName: '微积分', //$("#course option:selected").text()
                 points: [],
                 value: []
             }
@@ -46,6 +60,7 @@ $(function () {
                 data: {info: JSON.stringify(info)},
                 success: function (msg) {
                     $("#ok").click()
+                    console.log(msg);
                 },
                 error: function (xhr) {
                     alert("请求失败：" + xhr.status)
