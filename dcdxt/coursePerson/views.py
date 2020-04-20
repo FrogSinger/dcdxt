@@ -4,7 +4,7 @@ from django.db.models import Q
 
 # Create your views here.
 # /coursePerson/index
-from majorPerson.models import CourseMark
+from majorPerson.models import CourseMark,Teach
 
 
 def index(request):
@@ -19,5 +19,10 @@ def get_examine(request):
     print(temp)
     for item in temp:
         print(item.point.number)
+
+    teach = Teach.objects.filter(course__courseNumber=courseNumber,majorClass__classNumber=majorClassNumber)
+    status = teach[0].teacher.name
+    print(status)
+
 
     return render(request, 'coursePerson/course_value.html')

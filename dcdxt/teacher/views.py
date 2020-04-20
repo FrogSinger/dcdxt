@@ -4,9 +4,25 @@ from django.http import HttpResponse
 from django.db.models import Q
 
 # Create your views here.
-# /teacher/index
-def index(request):
-    return render(request,'teacher/index.html')
+# /teacher/import_course
+def import_course(request):
+    number = "127239240"
+
+    teach = Teach.objects.filter(teacher__number=number)
+    data = []
+    for item in teach:
+        courseNumber = item.course.courseNumber
+        courseName = item.course.name
+        classNumber = item.majorClass.classNumber
+        className = item.majorClass.name
+        temp = {
+            "courseNumber":courseNumber,
+            "courseName":courseName,
+            "classNumber":classNumber,
+            "className":className
+        }
+        data.append(temp)
+    return render(request,'teacher/index.html',{'data':data})
 
 # /teacher/import_data
 def import_course_data(request):
