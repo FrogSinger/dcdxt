@@ -3,6 +3,7 @@
  */
 $(function () {
 
+<<<<<<< HEAD
     var data = {}
     var info
     //页面加载完请求课程数据
@@ -70,6 +71,8 @@ $(function () {
         })
     })
 
+=======
+>>>>>>> 77e1d9ab5153085fdf8da5528e4e994ac1899daa
     //导入课程评价值excel
     $("#import").click(function () {
         //创建文件读取对象

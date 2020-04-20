@@ -4,12 +4,24 @@ from django.db.models import Q
 
 # Create your views here.
 # /coursePerson/index
-from majorPerson.models import CourseMark,Teach
+from majorPerson.models import CourseMark,Teach,Staff
 
 
 
 def index(request):
     return render(request,'coursePerson/index.html')
+
+def course_examine(request):
+    #Information get from cookie
+    number="813710901"
+    grade="2017"
+    #Get list of classes
+    coursePerson = Staff.objects.filter(number=number)
+    major = coursePerson[0].major
+    #MajorClass.objects.filter(major=major)
+    return HttpResponse("OK")
+
+
 
 def get_examine(request):
     grade = "2017"
