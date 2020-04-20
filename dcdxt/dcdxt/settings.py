@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dcdxt', #数据库名
-        'USER': 'root', #连接mysql的用户名
-        'PASSWORD': '19990713', #连接mysql的密码
+        'USER': 'lpr', #连接mysql的用户名
+        'PASSWORD': 'lpr2017SQL_', #连接mysql的密码
         'HOST': 'localhost',
         'PORT': 3306
     }

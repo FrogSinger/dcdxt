@@ -8,9 +8,76 @@
     <script src="/static/js/bootstrap.js"></script>
     <script src="/static/js/xlsx.core.min.js"></script>
     <script src="/static/js/export.js"></script>
-    <script src="/static/teacher/js/import_value.js.js"></script>
+    <script src="/static/teacher/js/import_value.js"></script>
 </head>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+    #page a{
+        padding: 0 4px;
+    }
+    #page span{
+        padding-left: 15px;
+    }
+</style>
 <body>
-
+<h1 class="page-header text-center">导入课程评价值</h1>
+<div class="container">
+    <!--查询条件-->
+    <form action="" class="form-inline">
+        <div class="form-group" style="margin-left: 10px">
+            <label for="class" class="control-label">班级：</label>
+            <select id="class" class="form-control">
+            </select>
+        </div>
+        <div class="form-group" style="margin-left: 30px">
+            <label for="course" class="control-label">课程：</label>
+            <select id="course" class="form-control">
+            </select>
+        </div>
+        <input type="button" value="查询" id="search" class="btn btn-default" style="margin-left: 20px">
+        <input type="button" value="下载导入模板" id="download" class="btn btn-default pull-right" style="margin-left: 10px">
+        <input type="button" value="导入" id="import" class="btn btn-default pull-right" style="margin-left: 10px">
+        <input type="file" id="upload" class="btn btn-default pull-right" style="margin-left: 10px">
+    </form>
+    <br>
+    <!--表格内容-->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>序号</th>
+                <th>课程编号</th>
+                <th>课程名</th>
+                <th>支撑权重</th>
+            </tr>
+            <tbody id="table"></tbody>
+        </table>
+    </div>
+    <!--分页-->
+    <div id="page">
+        <a href="javascript:">上一页</a>
+        <a href="javascript:">1</a>
+        <a href="javascript:" style="color: white;background-color: #337ab7;">2</a>
+        <a href="javascript:">3</a>
+        <a href="javascript:">上一页</a>
+        <span>共n页</span>
+    </div>
+</div>
+<!--导入成功提示框-->
+<button data-toggle="modal" data-target="#mymodal" id="ok" style="display: none"></button>
+<div id="mymodal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">导入成功</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

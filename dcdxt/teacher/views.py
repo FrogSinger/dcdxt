@@ -4,6 +4,15 @@ from django.http import HttpResponse
 from django.db.models import Q
 
 # Create your views here.
+
+# /login
+def login(request):
+    return render(request,'login.html')
+
+# /loginHandle
+def loginHandle(request):
+    return render(request,'teacher/index.html')
+
 # /teacher/import_course
 def import_course(request):
     number = "127239240"
@@ -22,7 +31,7 @@ def import_course(request):
             "className":className
         }
         data.append(temp)
-    return render(request,'teacher/index.html',{'data':data})
+    return render(request,'teacher/import_value.html',{'data':data})
 
 # /teacher/import_course_data
 def import_course_data(request):

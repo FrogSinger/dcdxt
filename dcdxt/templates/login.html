@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+</head>
+<style>
+    .box{
+        width: 380px;
+        height: 260px;
+        margin-top: 150px;
+        padding: 40px;
+        background-color: #fff;
+        border: 2px solid #337ab7;
+        border-radius: 10px;
+    }
+</style>
+<body style="background-color:#eee;">
+<div class="box center-block">
+    <form action="/loginHandle">
+      <div class="form-group">
+        <label for="exampleInputEmail1">用户名：</label>
+        <input type="text" class="form-control" placeholder="请输入用户名">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">密码：</label>
+        <input type="password" class="form-control" placeholder="请输入密码">
+      </div>
+      <button type="submit" class="btn btn-primary pull-right">登录</button>
+    </form>
+</div>
+</body>
+</html>
