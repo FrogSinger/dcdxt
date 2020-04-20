@@ -3,18 +3,71 @@
  */
 $(function () {
 
-    //请求
+    var data = {}
+    var info
+    //页面加载完请求课程数据
     $.ajax({
-        type: "POST",
-        url: "/teacher/import_course_data",
-        data: {info: JSON.stringify(info)},
+        type: "GET",
+        url: "/teacher/get_course_data",
         success: function (msg) {
-            $("#ok").click()
-            console.log(msg);
+            info = JSON.parse(msg)
+            for (var i = 0; i < info.length; i++) {
+                if (info[i].className in data)
+                    data[info[i].className].push(info[i].courseName)
+                else
+                    data[info[i].className] = [info[i].courseName]
+            }
+            //添加下拉框选项
+            var first = true
+            for (var key in data) {
+                $("#class").append($("<option>" + key + "</option>"))
+                if (first) {
+                    for (var i in data[key]) {
+                        $("#course").append($("<option>" + data[key][i] + "</option>"))
+                    }
+                    first = false
+                }
+            }
+            //联动
+            $("#class").change(function () {
+                var className = $("#class option:selected").text()
+                for (var key in data) {
+                    if (key == className) {
+                        $("#course").empty()
+                        for (var i in data[key]) {
+                            $("#course").append($("<option>" + data[key][i] + "</option>"))
+                        }
+                    }
+                }
+            })
         },
         error: function (xhr) {
             alert("请求失败：" + xhr.status)
         }
+    })
+
+    //查询
+    $("#search").click(function () {
+        var className = $("#class option:selected").text()
+        var courseName = $("#course option:selected").text()
+        var info2 = {}
+        for(var i=0; i<info.length; i++){
+            if(className == info[i].className)
+                info2["classNumber"] = info[i].classNumber
+            if(courseName == info[i].courseName)
+                info2["courseNumber"] = info[i].courseNumber
+        }
+        $.ajax({
+            type: "POST",
+            url: "/teacher/get_value_data",
+            data: {info: JSON.stringify(info2)},
+            success: function (msg) {
+                console.log(ok);
+            },
+            error: function (xhr) {
+                alert("请求失败：" + xhr.status)
+            }
+        })
     })
 
     //导入课程评价值excel
@@ -32,7 +85,7 @@ $(function () {
             var worksheet = workbook.Sheets.Sheet1
             //记录学生评价值的对象
             var info = {
-                courseName: '微积分', //$("#course option:selected").text()
+                courseName: '概率论与数理统计', //$("#course option:selected").text()
                 points: [],
                 value: []
             }
@@ -60,7 +113,6 @@ $(function () {
                 data: {info: JSON.stringify(info)},
                 success: function (msg) {
                     $("#ok").click()
-                    console.log(msg);
                 },
                 error: function (xhr) {
                     alert("请求失败：" + xhr.status)

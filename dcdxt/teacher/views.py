@@ -16,8 +16,11 @@ def loginHandle(request):
 
 # /teacher/import_course
 def import_course(request):
-    number = "127239240"
+    return render(request, 'teacher/import_value.html')
 
+# /teacher/get_course_data
+def get_course_data(request):
+    number = "2017002" # 登录页面从前端传的工号
     teach = Teach.objects.filter(teacher__number=number)
     data = []
     for item in teach:
@@ -32,7 +35,8 @@ def import_course(request):
             "className":className
         }
         data.append(temp)
-    return render(request,'teacher/import_value.html',{'data':data})
+    data = json.dumps(data, ensure_ascii=False)
+    return HttpResponse(data)
 
 # /teacher/import_course_data
 def import_course_data(request):
@@ -41,10 +45,8 @@ def import_course_data(request):
     #classNumber = json_text["classNumber"]
     points = info["points"]
     value = info["value"]
-    print(info)
 
     course = Course.objects.get(name=courseName)
-
     for i in range(len(value)):
         student = Student.objects.get(number=value[i]['studentNumber'])
         for j in range(len(points)):
