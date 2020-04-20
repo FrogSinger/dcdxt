@@ -32,6 +32,7 @@ def import_course(request):
             "className":className
         }
         data.append(temp)
+        #print(data)
     return render(request,'teacher/import_value.html',{'data':data})
 
 # /teacher/import_course_data

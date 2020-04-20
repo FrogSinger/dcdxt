@@ -3,20 +3,6 @@
  */
 $(function () {
 
-    //请求
-    $.ajax({
-        type: "POST",
-        url: "/teacher/import_course_data",
-        data: {info: JSON.stringify(info)},
-        success: function (msg) {
-            $("#ok").click()
-            console.log(msg);
-        },
-        error: function (xhr) {
-            alert("请求失败：" + xhr.status)
-        }
-    })
-
     //导入课程评价值excel
     $("#import").click(function () {
         //创建文件读取对象
