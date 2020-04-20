@@ -4,7 +4,7 @@ from django.db.models import Q
 
 # Create your views here.
 # /coursePerson/index
-from majorPerson.models import CourseMark,Teach,Staff
+from majorPerson.models import CourseMark,Teach,Staff,MajorClass
 
 
 
@@ -18,8 +18,40 @@ def course_examine(request):
     #Get list of classes
     coursePerson = Staff.objects.filter(number=number)
     major = coursePerson[0].major
-    #MajorClass.objects.filter(major=major)
-    return HttpResponse("OK")
+    classes = MajorClass.objects.filter(major=major)
+    #Get class list of this coursePerson
+    data = []
+    class_list = []
+    course_list = []
+    for item in classes:
+        classNumber = item.classNumber
+        className = item.name
+
+        #这个班级对应的课程
+        teach = Teach.objects.filter(majorClass__classNumber=classNumber,course__coursePerson__number=number)
+        course_list_temp = []
+        #这个班级的每一门课程
+        for temp in teach:
+            if(temp.course):
+                courseNumber = temp.course.courseNumber
+                courseName = temp.course.name
+                course_info = {
+                    "courseNumber":courseNumber,
+                    "courseName":courseName
+                }
+                course_list_temp.append(course_info)
+
+        data_temp = {
+            "classNumber":classNumber,
+            "className":className,
+            "course_list":course_list_temp
+        }
+        data.append(data_temp)
+    #print(data)
+    import json
+    json_data = json.dumps(data,ensure_ascii=False)
+
+    return HttpResponse(json_data)
 
 
 
@@ -65,6 +97,6 @@ def get_examine(request):
         "avg_value":avg_value
     }
     import json
-    json_data = json.dumps(data)
+    json_data = json.dumps(data,ensure_ascii=False)
 
     return render(request, 'coursePerson/course_value.html',{"data":json_data})
