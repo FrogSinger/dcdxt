@@ -42,6 +42,7 @@ def import_course_data(request):
     value = json_text["value"]
 
     course = Course.objects.get(name=courseName)
+    print(course)
 
     for i in range(len(value)):
         student = Student.objects.get(number=value[i]['studentNumber'])

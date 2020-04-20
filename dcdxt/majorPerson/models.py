@@ -19,6 +19,7 @@ class Major(models.Model):
 class MajorClass(models.Model):
     classNumber = models.CharField(verbose_name='班级编号',max_length=20,null=False)
     name = models.CharField(verbose_name='班级名称', max_length=200, null=False)
+    major = models.ForeignKey('Major', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
