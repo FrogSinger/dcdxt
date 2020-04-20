@@ -2,6 +2,7 @@ from django.shortcuts import render
 from majorPerson.models import *
 from django.http import HttpResponse
 from django.db.models import Q
+import json
 
 # Create your views here.
 
@@ -35,11 +36,12 @@ def import_course(request):
 
 # /teacher/import_course_data
 def import_course_data(request):
-    json_text = {"courseName":"微积分","points":["1-1","2-1"],"value":[{"studentNumber":"2017115171","point":[0.7,0.8]},{"studentNumber":"2017115191","point":[1,0.9]},{"studentNumber":"2017115182","point":[0.65,0.75]}]}
-    courseName = json_text["courseName"]
+    info = json.loads(request.POST['info'])
+    courseName = info["courseName"]
     #classNumber = json_text["classNumber"]
-    points = json_text["points"]
-    value = json_text["value"]
+    points = info["points"]
+    value = info["value"]
+    print(info)
 
     course = Course.objects.get(name=courseName)
 
