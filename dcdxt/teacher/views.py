@@ -20,7 +20,7 @@ def import_course(request):
 
 # /teacher/get_course_data
 def get_course_data(request):
-    number = "2017002" # 登录页面从前端传的工号
+    number = "127239240" # 登录页面从前端传的工号
     teach = Teach.objects.filter(teacher__number=number)
     data = []
     for item in teach:
@@ -35,13 +35,9 @@ def get_course_data(request):
             "className":className
         }
         data.append(temp)
-<<<<<<< HEAD
+
     data = json.dumps(data, ensure_ascii=False)
     return HttpResponse(data)
-=======
-        #print(data)
-    return render(request,'teacher/import_value.html',{'data':data})
->>>>>>> 77e1d9ab5153085fdf8da5528e4e994ac1899daa
 
 # /teacher/import_course_data
 def import_course_data(request):
@@ -52,11 +48,9 @@ def import_course_data(request):
     value = info["value"]
 
     course = Course.objects.get(name=courseName)
-<<<<<<< HEAD
-=======
+
     print(course)
 
->>>>>>> 77e1d9ab5153085fdf8da5528e4e994ac1899daa
     for i in range(len(value)):
         student = Student.objects.get(number=value[i]['studentNumber'])
         for j in range(len(points)):
