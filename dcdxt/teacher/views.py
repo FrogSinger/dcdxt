@@ -24,7 +24,7 @@ def import_course(request):
         data.append(temp)
     return render(request,'teacher/index.html',{'data':data})
 
-# /teacher/import_data
+# /teacher/import_course_data
 def import_course_data(request):
     json_text = {"courseName":"微积分","points":["1-1","2-1"],"value":[{"studentNumber":"2017115171","point":[0.7,0.8]},{"studentNumber":"2017115191","point":[1,0.9]},{"studentNumber":"2017115182","point":[0.65,0.75]}]}
     courseName = json_text["courseName"]
@@ -33,7 +33,6 @@ def import_course_data(request):
     value = json_text["value"]
 
     course = Course.objects.get(name=courseName)
-
 
     for i in range(len(value)):
         student = Student.objects.get(number=value[i]['studentNumber'])
