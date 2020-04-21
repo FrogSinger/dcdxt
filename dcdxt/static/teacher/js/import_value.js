@@ -3,6 +3,20 @@
  */
 $(function () {
 
+    //注销
+    $("#exit").click(function () {
+        $.ajax({
+            type: 'GET',
+            url: "/exit",
+            success:function () {
+                window.location = '/login'
+            },
+            error: function (xhr) {
+                alert("请求失败：" + xhr.status)
+            }
+        })
+    })
+
     var data = {}
     var info
     //页面加载完请求课程数据
@@ -62,7 +76,7 @@ $(function () {
             url: "/teacher/get_value_data",
             data: {info: JSON.stringify(info2)},
             success: function (msg) {
-                console.log(msg);
+                // console.log(msg);
                 //将后端返回的数据转成json格式
                 msg = JSON.parse(msg)
                 //清空表格内容 添加数据
@@ -73,7 +87,11 @@ $(function () {
                 }
                 //审核状态
                 if(msg['status'] == 0)
-                    $("#status").text('未审核').show().css('color','red')
+                    $("#status").text('未审核').show().css('color','#337ab7')
+                else if(msg['status'] == 1)
+                    $("#status").text('审核通过').show().css('color','#4cae4c')
+                else if(msg['status'] == 2)
+                     $("#status").text('审核未通过').show().css('color','orangered')
             },
             error: function (xhr) {
                 alert("请求失败：" + xhr.status)

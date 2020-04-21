@@ -132,3 +132,58 @@ def download_template(request):
     response['Content-Type']='application/octet-stream'
     response['Content-Disposition']='attachment;filename="template.xlsx"'
     return response
+
+def calculate_point_mark(request):
+    #data
+    studentNumber = "2017115182"
+
+    result = {}
+    # Get list of GraduationReqPoints
+    points = GraduationReqPoint.objects.all()
+    points_list = []
+    for point in points:
+        number = point.number
+        points_list.append(number)
+        result[number]=[]
+    print(result)
+
+    #Get the list of courses
+    courses = Course.objects.all()
+    courses_list = []
+
+    # The outer cycle
+    for course in courses:
+        #Coure number
+        courseNumber = course.courseNumber
+        #Get courses' related points from SupportMatrix
+        items = SupportMatrix.objects.filter(course__courseNumber=courseNumber)
+        points_list = []
+        pointNumber_dict = {}
+        for item in items:
+            pointNumber = item.point.number
+            weight = item.weight
+            points_list.append(pointNumber)
+            pointNumber_dict[pointNumber] = weight
+        print(pointNumber_dict)
+
+        #Get marks on this course of this student
+        items = CourseMark.objects.filter(student__number=studentNumber,course__courseNumber=courseNumber)
+        mark_dict ={}
+        print(items)
+        if(len(items)!=0):
+            for item in items:
+                pointNumber = item.point.number
+                mark = item.mark
+                mark_dict[pointNumber]=mark
+        else:
+            continue
+        print(mark_dict)
+        print(points_list)
+        for point in points_list:
+
+            value = pointNumber_dict[point]*mark_dict[point]
+            result[point].append(value)
+    print(result)
+
+    # Calculate mark for every point
+    #for point in points_list:

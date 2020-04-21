@@ -1,4 +1,19 @@
 $(function () {
+
+    //注销
+    $("#exit").click(function () {
+        $.ajax({
+            type: 'GET',
+            url: "/exit",
+            success:function () {
+                window.location = '/login'
+            },
+            error: function (xhr) {
+                alert("请求失败：" + xhr.status)
+            }
+        })
+    })
+
     //下载导入模板
     $("#download").click(function () {
          $.ajax({

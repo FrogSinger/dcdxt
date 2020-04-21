@@ -11,6 +11,10 @@ from majorPerson.models import CourseMark,Teach,Staff,MajorClass
 def index(request):
     return render(request,'coursePerson/index.html')
 
+def course_value(request):
+    return render(request, 'coursePerson/course_value.html')
+
+#Init data
 def course_examine(request):
     #Information get from cookie
     number="813710901"
@@ -54,13 +58,14 @@ def course_examine(request):
     return HttpResponse(json_data)
 
 
-
 def get_examine(request):
-    grade = "2017"
-    majorClassNumber = "201704"
-    courseNumber = "140011"
+    import json
+    info = json.loads(request.POST['info'])
+    majorClassNumber = info['classNumber']
+    courseNumber = info['courseNumber']
+    print(info)
 
-    temp = CourseMark.objects.filter(course__courseNumber=courseNumber,student__majorClass__classNumber=majorClassNumber,student__grade=grade)
+    temp = CourseMark.objects.filter(course__courseNumber=courseNumber,student__majorClass__classNumber=majorClassNumber)
     #print(temp)
     level_1 = 0
     level_2 = 0
@@ -97,7 +102,21 @@ def get_examine(request):
         "avg_value":avg_value
     }
     import json
-    json_data = json.dumps(data,ensure_ascii=False)
-    print(data)
+    data = json.dumps(data, ensure_ascii=False)
+    return HttpResponse(data)
 
-    return render(request, 'coursePerson/course_value.html',{"data":json_data})
+#When user click the examine button
+def examine(request):
+    import json
+    info = json.loads(request.POST['info'])
+    status = info["status"]
+    majorClassNumber = info["classNumber"]
+    courseNumber = info["courseNumber"]
+
+    teach = Teach.objects.filter(course__courseNumber=courseNumber, majorClass__classNumber=majorClassNumber)
+    print(teach[0].status)
+    temp = teach[0]
+    temp.status = status
+    temp.save()
+    if(temp.status==status):
+        return HttpResponse("OK")

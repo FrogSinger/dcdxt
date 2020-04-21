@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^majorPerson/', include('majorPerson.urls')),
     url(r'^login/',views.login),
     url(r'^loginHandle/', views.loginHandle),
+    url(r'^exit$',views.exit),
 ]

@@ -9,24 +9,23 @@ import json
 def index(request):
     return render(request, 'teacher/index.html')
 
-# /login
 def login(request):
     # judge login status
-    # userType = request.session['userType']
-    # if request.session.has_key('islogin'):
-    #     if (userType == "学生"):
-    #         return render(request, 'student/index.html')
-    #     if (userType == "导员"):
-    #         return render(request, 'instructor/index.html')
-    #     if (userType == "教师"):
-    #         return render(request, 'teacher/index.html')
-    #     if (userType == "专业负责人"):
-    #         return render(request, 'majorPerson/index.html')
-    #     if (userType == "课程负责人"):
-    #         return render(request, 'coursePerson/index.html')
-    # else:
+    if request.session.has_key('userType'):
+        userType = request.session['userType']
+        if request.session.has_key('islogin'):
+            if (userType == "学生"):
+                return render(request, 'student/index.html')
+            if (userType == "导员"):
+                return render(request, 'instructor/index.html')
+            if (userType == "教师"):
+                return render(request, 'teacher/import_value.html')
+            if (userType == "专业负责人"):
+                return render(request, 'majorPerson/import_supportMatrix.html')
+            if (userType == "课程负责人"):
+                return render(request, 'coursePerson/course_value.html')
+    else:
         return render(request, 'login.html')
-
 
 # /loginHandle
 def loginHandle(request):
@@ -41,20 +40,25 @@ def loginHandle(request):
     #Save user type
     request.session['userType'] = userType
     if (len(islogin)>=1):
-        if(userType=="学生"):
+        if (userType == "学生"):
             return render(request, 'student/index.html')
-        if(userType=="导员"):
+        if (userType == "导员"):
             return render(request, 'instructor/index.html')
-        if(userType=="教师"):
-            return render(request, 'teacher/index.html')
-        if (userType=="专业负责人"):
-            return render(request, 'majorPerson/index.html')
-        if (userType=="课程负责人"):
-            return render(request, 'coursePerson/index.html')
+        if (userType == "教师"):
+            return render(request, 'teacher/import_value.html')
+        if (userType == "专业负责人"):
+            return render(request, 'majorPerson/import_supportMatrix.html')
+        if (userType == "课程负责人"):
+            return render(request, 'coursePerson/course_value.html')
         #return JsonResponse({'res': 1})
     else:
         return HttpResponse("Login error")
 
+#exit
+def exit(request):
+    #request.session['islogin'] = False
+    request.session.flush()
+    return render(request, 'login.html')
 
 # /teacher/import_course
 def import_course(request):
