@@ -117,6 +117,14 @@ class TeachAdmin(admin.ModelAdmin):
     list_filter = ['course']
     search_fields = ['teacher']
 
+class FeedbackAdmin(admin.ModelAdmin):
+    list_per_page = 20
+    list_display = ['course','teacher','majorClass','coursePerson','examine_time','status']
+    # 上面既可以是属性名，也可以是方法名
+    actions_on_bottom = True
+    list_filter = ['course','teacher']
+    search_fields = ['teacher']
+
 admin.site.register(College,CollegeAdmin)
 admin.site.register(Major,MajorAdmin)
 admin.site.register(MajorClass,MajorClassAdmin)
@@ -131,5 +139,6 @@ admin.site.register(SupportMatrix,SupportMatrixAdmin)
 admin.site.register(CourseMark,CourseMarkAdmin)
 admin.site.register(PointMark,PointMarkAdmin)
 admin.site.register(Teach,TeachAdmin)
+admin.site.register(Feedback,FeedbackAdmin)
 
 admin.site.site_header="西北大学毕业要求达成度系统管理后台"

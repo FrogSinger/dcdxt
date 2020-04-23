@@ -134,10 +134,14 @@ def download_template(request):
     return response
 
 def calculate_point_mark(request):
+    #studentNumber = request.session['number']
+    #print(number)
+
     #data
     studentNumber = "2017115182"
 
     result = {}
+    mark_on_courses = []
     # Get list of GraduationReqPoints
     points = GraduationReqPoint.objects.all()
     points_list = []
@@ -145,7 +149,7 @@ def calculate_point_mark(request):
         number = point.number
         points_list.append(number)
         result[number]=[]
-    print(result)
+    #print(result)
 
     #Get the list of courses
     courses = Course.objects.all()
@@ -158,18 +162,19 @@ def calculate_point_mark(request):
         #Get courses' related points from SupportMatrix
         items = SupportMatrix.objects.filter(course__courseNumber=courseNumber)
         points_list = []
-        pointNumber_dict = {}
+        pointNumber_dict = {} #这门课支撑的指标点列表及其权重
         for item in items:
             pointNumber = item.point.number
             weight = item.weight
             points_list.append(pointNumber)
-            pointNumber_dict[pointNumber] = weight
-        print(pointNumber_dict)
+            pointNumber_dict[pointNumber] = weight #For example:{'1-1': 0.2, '2-1': 0.25}
+        #print(pointNumber_dict)
 
         #Get marks on this course of this student
+        #该学生所有的课程
         items = CourseMark.objects.filter(student__number=studentNumber,course__courseNumber=courseNumber)
-        mark_dict ={}
-        print(items)
+        mark_dict ={} #该学生在这门课上获得的指标点评价
+        #print(items)
         if(len(items)!=0):
             for item in items:
                 pointNumber = item.point.number
@@ -177,13 +182,30 @@ def calculate_point_mark(request):
                 mark_dict[pointNumber]=mark
         else:
             continue
-        print(mark_dict)
-        print(points_list)
-        for point in points_list:
+        #print(mark_dict) #{'1-1': 0.9, '2-1': 0.7}
+        #print(points_list) #{'1-1': 0.2, '2-1': 0.25}
 
+        #计算该学生每个指标点的达成度
+        mark_on_this_course = {
+            "courseNumber":courseNumber,
+            "marks":[]
+        }
+        for point in points_list:
             value = pointNumber_dict[point]*mark_dict[point]
             result[point].append(value)
-    print(result)
+            temp = {
+                point:value
+            }
+            mark_on_this_course["marks"].append(temp)
+        #print(mark_on_this_course)
+        mark_on_courses.append(mark_on_this_course)
 
-    # Calculate mark for every point
-    #for point in points_list:
+    for key in result:
+        result[key] = sum(result[key])
+    data = {
+        "marks_result":result,
+        "mark_on_courses":mark_on_courses
+    }
+    data = json.dumps(data, ensure_ascii=False)
+    print(data)
+    return HttpResponse(data)

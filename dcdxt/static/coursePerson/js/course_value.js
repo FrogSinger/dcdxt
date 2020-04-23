@@ -8,13 +8,14 @@ $(function () {
         $.ajax({
             type: 'GET',
             url: "/exit",
-            success:function () {
-                window.location = '/login'
+            success: function () {
+                window.location = "/login/"
             },
             error: function (xhr) {
                 alert("请求失败：" + xhr.status)
             }
         })
+        window.location = 'login.html'
     })
 
     //请求课程数据
@@ -25,7 +26,6 @@ $(function () {
         url: "/coursePerson/course_examine",
         success: function (msg) {
             info = JSON.parse(msg)
-            console.log(info);
             for (var i = 0; i < info.length; i++) {
                 data[info[i]['className']] = info[i]['course_list']
             }
@@ -78,42 +78,56 @@ $(function () {
             data: {info: JSON.stringify(info2)},
             success: function (msg) {
                 var msg = JSON.parse(msg)
-                console.log(msg);
-                //饼状图
-                var myChart = echarts.init(document.getElementById('picture'), 'light');
-                myChart.setOption({
-                    series: [
-                        {
-                            name: '课程评价值',
-                            type: 'pie',    // 设置图表类型为饼图
-                            radius: '48%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
-                            // roseType: 'angle', //把饼图显示成南丁格尔图
-                            data: [  // 数据数组，name 为数据项名称，value 为数据项值
-                                {value: msg["level_1"], name: '达成度>=0.9'},
-                                {value: msg["level_2"], name: '达成度>=0.8'},
-                                {value: msg["level_3"], name: '达成度>=0.65'},
-                                {value: msg["level_4"], name: '达成度<0.65'}
-                            ]
-                        }
-                    ]
-                })
-                //统计信息
-                $("#box").html("<h4>最高评价值：" + msg['max_value'] + "</h4><h4>最低评价值：" + msg['min_value'] + "</h4><h4>平均评价值：" + msg['avg_value'].toFixed(2) + "</h4><br>")
+                //为每个指标点生成统计信息
+                for (var i = 0; i < msg['data'].length; i++) {
+                    //饼状图
+                    var picture = $('<div class="picture"></div>')
+                    var box = $('<div class="box"></div>')
+                    $("#pictures").append(picture).append(box)
+                    var myChart = echarts.init($(".picture").eq(i)[0], 'light');
+                    myChart.setOption({
+                        title: {
+                            text: "指标点 " + msg['data'][i]["point"],
+                            subtext: $("#class option:selected").text() + $("#course option:selected").text() + "在指标点" + msg['data'][i]["point"] + "上的课程评价值分布情况",
+                            x: 'center'
+                        },
+                        series: [
+                            {
+                                name: '课程评价值',
+                                type: 'pie',    // 设置图表类型为饼图
+                                radius: '48%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                                // roseType: 'angle', //把饼图显示成南丁格尔图
+                                data: [  // 数据数组，name 为数据项名称，value 为数据项值
+                                    {value: msg['data'][i]["level_1"], name: '达成度>=0.9'},
+                                    {value: msg['data'][i]["level_2"], name: '达成度>=0.8'},
+                                    {value: msg['data'][i]["level_3"], name: '达成度>=0.65'},
+                                    {value: msg['data'][i]["level_4"], name: '达成度<0.65'}
+                                ]
+                            }
+                        ]
+                    })
+                    //统计信息
+                    $(".box").eq(i).html("<h4>最高评价值：" + msg['data'][i]['max_value'] + "</h4><h4>最低评价值：" + msg['data'][i]['min_value'] + "</h4><h4>平均评价值：" + msg['data'][i]['avg_value'].toFixed(2) + "</h4><br>")
+                    $(".box").eq(i).css({
+                        top: 300 + i * 440,
+                        left: 580
+                    })
+                }
                 //审核状态
                 if (msg['status'] == 0) {
-                    $("#box").append($('<button class="btn btn-default" style="margin-right: 20px" id="pass">审核通过</button>'))
-                    $("#box").append($('<button class="btn btn-default" id="notpass">审核不通过</button>'))
+                    $("#evaluate").append($('<button class="btn pull-right btn-danger" id="notpass">审核不通过</button>'))
+                    $("#evaluate").append($('<button class="btn pull-right btn-success" style="margin-right: 20px" id="pass">审核通过</button>'))
                     //审核通过
                     $("#pass").click(function () {
                         var className = $("#class option:selected").text()
                         var courseName = $("#course option:selected").text()
                         var info3 = {}
-                        for (var i = 0; i < info.length; i++) {
-                            if (className == info[i].className) {
-                                info3["classNumber"] = info[i].classNumber
-                                for (var j = 0; j < info[i]['course_list'].length; j++) {
-                                    if (courseName == info[i]['course_list'][j].courseName)
-                                        info3["courseNumber"] = info[i]['course_list'][j].courseNumber
+                        for (var j = 0; j < info.length; j++) {
+                            if (className == info[j].className) {
+                                info3["classNumber"] = info[j].classNumber
+                                for (var k = 0; k < info[j]['course_list'].length; k++) {
+                                    if (courseName == info[j]['course_list'][k].courseName)
+                                        info3["courseNumber"] = info[j]['course_list'][k].courseNumber
                                 }
                             }
                         }
@@ -124,8 +138,8 @@ $(function () {
                             url: "/coursePerson/examine",
                             data: {info: JSON.stringify(info3)},
                             success: function (msg) {
-                                $("#box").append($('<h3 style="color: #4cae4c;">审核通过</h3>'))
-                                $("#box button").remove()
+                                $("#evaluate").children('button').remove()
+                                $("#evaluate").append($('<button class="disabled btn btn-success pull-right">已审核通过</button>'))
                             },
                             error: function (xhr) {
                                 alert("请求失败：" + xhr.status)
@@ -137,41 +151,59 @@ $(function () {
                         var className = $("#class option:selected").text()
                         var courseName = $("#course option:selected").text()
                         var info3 = {}
-                        for (var i = 0; i < info.length; i++) {
-                            if (className == info[i].className) {
-                                info3["classNumber"] = info[i].classNumber
-                                for (var j = 0; j < info[i]['course_list'].length; j++) {
-                                    if (courseName == info[i]['course_list'][j].courseName)
-                                        info3["courseNumber"] = info[i]['course_list'][j].courseNumber
+                        for (var j = 0; j < info.length; j++) {
+                            if (className == info[j].className) {
+                                info3["classNumber"] = info[j].classNumber
+                                for (var k = 0; k < info[j]['course_list'].length; k++) {
+                                    if (courseName == info[j]['course_list'][k].courseName)
+                                        info3["courseNumber"] = info[j]['course_list'][k].courseNumber
                                 }
                             }
                         }
                         info3['status'] = 2
-                        console.log(info3);
                         $.ajax({
                             type: "POST",
                             url: "/coursePerson/examine",
                             data: {info: JSON.stringify(info3)},
                             success: function (msg) {
-                                $("#box").append($('<h3 style="color: orangered">审核不通过</h3>'))
-                                $("#box button").remove()
+                                $("#evaluate").children('button').remove()
+                                $("#evaluate").append($('<button class="disabled btn btn-danger pull-right">已审核不通过</button>'))
                             },
                             error: function (xhr) {
                                 alert("请求失败：" + xhr.status)
                             }
                         })
+
+                        //反馈意见弹框
+                        $("#no").click()
+                        var info4 = {}
+                        info4["classNumber"] = info3["classNumber"]
+                        info4["courseNumber"] = info3["courseNumber"]
+                        $("#feedback").click(function () {
+                            info4["feedback"] = $("#comment").val()
+                            // console.log(JSON.stringify(info4));
+                            $.ajax({
+                                type: "POST",
+                                url: "/coursePerson/feedback",
+                                data: {info: JSON.stringify(info4)},
+                                success: function (msg) {
+                                },
+                                error: function (xhr) {
+                                    alert("请求失败：" + xhr.status)
+                                }
+                            })
+                        })
                     })
                 }
                 else if (msg['status'] == 1) {
-                    $("#box").append($('<h3 style="color: #4cae4c;">审核通过</h3>'))
-
+                    $("#evaluate").append($('<button class="disabled btn btn-success pull-right">已审核通过</button>'))
                 }
                 else if (msg['status'] == 2) {
-                    $("#box").append($('<h3 style="color: orangered">审核不通过</h3>'))
+                    $("#evaluate").append($('<button class="disabled btn btn-danger pull-right">已审核不通过</button>'))
                 }
             },
             error: function (xhr) {
-                alert("请求失败：" + xhr.status)
+                $("#ok").click()
             }
         })
     })

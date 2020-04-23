@@ -10,14 +10,12 @@
     <script src="/static/coursePerson/js/course_value.js"></script>
 </head>
 <style>
-    #picture{
+    .picture{
         width: 440px;
         height: 440px;
     }
-    #box{
+    .box{
         position: absolute;
-        top: 275px;
-        left: 550px;
     }
     #exit{
         position: absolute;
@@ -42,11 +40,43 @@
         </div>
         <input type="button" value="查询" id="search" class="btn btn-default" style="margin-left: 20px">
     </form>
+    <div id="evaluate"></div>
     <br>
     <!--统计图-->
-    <div id="picture"></div>
-    <div id="box"></div>
+    <div id="pictures" style="margin-top: 30px">
+    </div>
 </div>
+</div>
+<!--无数据提示框-->
+<button data-toggle="modal" data-target="#mymodal" id="ok" style="display: none"></button>
+<div id="mymodal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">暂无评价值</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--审核不通过反馈弹框-->
+<button data-toggle="modal" data-target="#feedbackmodal" id="no" style="display: none"></button>
+<div id="feedbackmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">请填写反馈意见</h3>
+            </div>
+            <div class="modal-body">
+                <textarea id="comment" placeholder="请在此处输入反馈意见" class="center-block" cols="65" rows="10" style="font-size: 16px"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="feedback" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
 </div>
 {#注销#}
 <input type="button" value="注销" class="btn btn-warning" id="exit">

@@ -1,4 +1,5 @@
 from django.db import models
+import django.utils.timezone as timezone
 
 # Create your models here.
 class College(models.Model):
@@ -111,3 +112,16 @@ class Student(Person):
 
     def __str__(self):
         return self.number
+
+class Feedback(models.Model):
+    course = models.ForeignKey('Course',on_delete=models.SET_NULL,null=True)
+    teacher = models.ForeignKey('Staff', on_delete=models.SET_NULL, null=True)
+    majorClass = models.ForeignKey('MajorClass', on_delete=models.SET_NULL, null=True)
+    coursePerson = models.ForeignKey('Staff',related_name="coursePerson",on_delete=models.SET_NULL,null=True)
+
+    reason = models.CharField(verbose_name='驳回原因',max_length=500,null=True)
+    examine_time = models.DateTimeField('审核日期',default = timezone.now)
+    status = models.BooleanField(verbose_name='是否处理',default=False,null=False)
+
+    def __str__(self):
+        return self.course.name

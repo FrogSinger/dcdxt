@@ -32,10 +32,13 @@ def loginHandle(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
     print(username,password)
-    # remember login status
+    # remember login status and id
     request.session['islogin'] = True
+    request.session['number'] = username
     #look up in database
     islogin = User.objects.filter(user__number=username,password=password)
+    if(len(islogin)==0):
+        return HttpResponse("Login Error!")
     userType = islogin[0].type
     #Save user type
     request.session['userType'] = userType
@@ -89,7 +92,7 @@ def get_course_data(request):
 def import_course_data(request):
     info = json.loads(request.POST['info'])
     courseNumber = info["courseNumber"]
-    #classNumber = info["classNumber"]
+    classNumber = info["classNumber"]
     points = info["points"]
     value = info["value"]
 
@@ -108,6 +111,13 @@ def import_course_data(request):
             for item in repeat:
                 item.delete()
             obj.save()
+    #Init the examine status
+    number = "127239240"  # 登录页面从前端传的工号
+    current_course = Teach.objects.filter(course__courseNumber=courseNumber,teacher__number=number,majorClass__classNumber=classNumber)
+    current_course = current_course[0]
+    current_course.status = 0
+    current_course.save()
+
     return HttpResponse('OK')
 
 def get_value_data(request):

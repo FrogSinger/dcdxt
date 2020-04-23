@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'import_interface$',views.import_interface),
     url(r'get_matrix$', views.get_matrix),
     url(r'download_template$', views.download_template),
-    url(r'calculate_point_mark$', views.calculate_point_mark)
+    url(r'calculate_point_mark$', views.calculate_point_mark),
 ]

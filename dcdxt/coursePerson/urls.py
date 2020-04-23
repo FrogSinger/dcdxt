@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^get_examine$', views.get_examine),
     url(r'^course_examine$', views.course_examine),
     url(r'^examine$', views.examine),
+    url(r'feedback$', views.feedback),
 ]
